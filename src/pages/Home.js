@@ -20,13 +20,13 @@ const Home = () => {
     , [])
 
     const handleSubmit = (e) => {
-        // const newUser = {username, password}
+        const newUser = {username, password}
         e.preventDefault();
         const fetching = async () => {
             const res = await fetch('http://localhost:8080/create', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: {username, password}
+                body: JSON.stringify(newUser)
                 
             })
             if (res.ok) {
@@ -50,7 +50,7 @@ const Home = () => {
         <div>
             {data && data.map((item, index) => (
                 <div key={index}>
-                    <h3>{item.Firstname} {item.Lastname}</h3>
+                    <h3>{item.Username} {item.Pass} {item.Lastlog}</h3>
                 </div>
 
             ))}
