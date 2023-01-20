@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import Nav from './components/Nav';
 import Register from './pages/Register';
 
+
+
 function App() {
   return (
     <div className="App">
