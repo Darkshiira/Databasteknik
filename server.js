@@ -8,7 +8,7 @@ var knex = require('knex')({
     host: 'localhost',
     port: '3306',
     user: 'root',
-    password: '',
+    password: 'Boodis',
     database: 'Users'
     }
     });
@@ -17,6 +17,7 @@ var knex = require('knex')({
     const { Model } = require('objection');
     Model.knex(knex);
 
+    const { raw } = require('objection');
     //imports our database - table
     class Users extends Model {
     static get tableName() {
@@ -70,17 +71,34 @@ var knex = require('knex')({
       else
       {
         //Sends a response with the status code 401 - Unauthorized if the user does not exist in the database
-        res.sendStatus(401)
-        res.body.text='username'
-       // res.status(401).send("Unauthorized")
+
+       res.status(401).send("Unauthorized")
       }
     })
   })
     //Endpoint for the home page
     app.get('/', (request, response) => {
-    Users.query()
-    
-    .then(results => response.send(results))
+    Users.query().select('Username', 'Pass', raw(`TIMESTAMPDIFF(minute, Lastlog, NOW()) as Lastlog`)).orderBy('Lastlog', 'desc')
+    .then(results => {
+      results.map(result => {
+
+
+        
+        if (result.Lastlog/60 < 1)
+        {
+          result.Lastlog = (result.Lastlog + ' minutes ago')
+        }
+        else if (result.Lastlog/60 > 1 && result.Lastlog/60 < 24)
+        {
+          result.Lastlog = (Math.floor(result.Lastlog/60) + ' hours ago')
+        }
+        else if (result.Lastlog/60 > 24)
+        {
+          result.Lastlog = (Math.floor(result.Lastlog/60/24) + ' days ago')
+        }
+      });
+      
+      response.send(results)})
     .catch(err => { console.log(err);
     response
     .status(500)

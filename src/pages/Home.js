@@ -24,7 +24,6 @@ const Home = () => {
             console.log('res: ' + res)
             console.log('res-status:' + res.status)
             if (res.status === 200) {
-                console.log(res)
                 setLogin('false');
                 setUsername('');
                 setPassword('');
@@ -32,7 +31,6 @@ const Home = () => {
                 const fetchData = async () => {
                     const res = await fetch('http://localhost:8080');
                     const json = await res.json();
-                    console.log('fetched')
                     setData(json);
                 }
                 fetchData();
@@ -58,10 +56,14 @@ const Home = () => {
                 </form>
 
                 :
+
                 data.map((item, index) => (
                     <div key={index}>
                         <h3>{item.Username} {item.Pass} {item.Lastlog}</h3>
+                        
+                        
                     </div>
+                   
                 ))}
 
 
