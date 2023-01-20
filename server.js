@@ -46,9 +46,11 @@ var knex = require('knex')({
 
       })
 
-    app.post('/login', (req, res) => {
+    app.post('/login', (req, res) => 
+    {
 
-    if (Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password))
+    Users.query().select('Username', 'Pass').where('Username', req.body.username).where('Pass', req.body.password).then(results => {
+      if (results.length > 0)
       {
         Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password).update({Lastlog: new Date()})
         .then(res.end("Logged in"))
@@ -60,6 +62,7 @@ var knex = require('knex')({
         console.log("Unauthorized")
       }
     })
+  })
     
     app.get('/', (request, response) => {
     Users.query()
