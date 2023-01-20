@@ -36,9 +36,6 @@ var knex = require('knex')({
     app.use(allowCrossDomain);
     app.use(express.json());
     
-    
-
-
     app.post('/create', (req, res) => {
         Users.query().insert({
         Username: req.body.username,

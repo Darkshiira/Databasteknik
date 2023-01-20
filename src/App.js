@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Routes  } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Nav from './components/Nav';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Nav />
         <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
         </Routes>
         </BrowserRouter>
     </div>
