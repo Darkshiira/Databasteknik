@@ -45,6 +45,19 @@ var knex = require('knex')({
         .catch(err => console.log(err));
 
       })
+
+    app.post('/login', (req, res) => {
+      if (Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password))
+      {
+        Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password).update({Lastlog: new Date()})
+        .then(res.end("Logged in"))
+        .catch(err => console.log(err));
+      }
+      else
+      {
+        res.end(console.log("Wrong username or password"));
+      }
+    })
     
     app.get('/', (request, response) => {
     Users.query()
