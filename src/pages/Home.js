@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 
 const Home = () => {
@@ -8,19 +8,7 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('true');
-   
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch('http://localhost:8080');
-            const json = await res.json();
-            console.log('fetched')
-            setData(json);
-        }
-        fetchData();
-    }
-    , [])
     
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUser = {username, password}
@@ -35,8 +23,17 @@ const Home = () => {
                 setLogin('false');
                 setUsername('');
                 setPassword('');
-                
+
+                const fetchData = async () => {
+                    const res = await fetch('http://localhost:8080');
+                    const json = await res.json();
+                    console.log('fetched')
+                    setData(json);
+                }
+                fetchData();
             }
+                
+            
 
         else {
             console.log(res)
@@ -57,14 +54,16 @@ const Home = () => {
             <button type = "submit" >Log in!</button>
         </form>
 
-        : data.map((item, index) => (
+        : 
+        data.map((item, index) => (
                 <div key={index}>
                     <h3>{item.Username} {item.Pass} {item.Lastlog}</h3>
                 </div>
             ))} 
-        {login === 'false' && <button onClick={setLogin(true)}> Log out!</button>}
-        </div>
 
+        
+        {login === 'true' ? null :<button onClick={(e) =>setLogin("true")}> Log out!</button>}
+        </div>
   )
 }
 

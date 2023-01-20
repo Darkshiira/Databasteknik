@@ -59,7 +59,6 @@ var knex = require('knex')({
       else
       {
         res.status(401).send("Unauthorized")
-        console.log("Unauthorized")
       }
     })
   })
