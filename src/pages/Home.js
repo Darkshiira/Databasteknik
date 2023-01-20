@@ -30,15 +30,20 @@ const Home = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newUser)
             })
-            if (res.ok) {
+            if (res.status === 200) {
+                console.log(res)
                 setLogin('false');
                 setUsername('');
                 setPassword('');
-                console.log(login)
                 
             }
+
+        else {
+            console.log(res)
         }
+    }
         fetching();
+    
     }
 
   return (

@@ -47,7 +47,8 @@ var knex = require('knex')({
       })
 
     app.post('/login', (req, res) => {
-      if (Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password))
+
+    if (Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password))
       {
         Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password).update({Lastlog: new Date()})
         .then(res.end("Logged in"))
@@ -55,7 +56,8 @@ var knex = require('knex')({
       }
       else
       {
-        res.end(console.log("Wrong username or password"));
+        res.status(401).send("Unauthorized")
+        console.log("Unauthorized")
       }
     })
     
