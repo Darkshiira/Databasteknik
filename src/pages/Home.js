@@ -1,23 +1,28 @@
 import React from 'react'
-import {useState} from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 
 
 const Home = () => {
-    
+
     const [data, setData] = useState([]);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('true');
-    
+    const [failedlogin, setfailedlogin] = useState('false')
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newUser = {username, password}
+        const newUser = { username, password }
         const fetching = async () => {
             const res = await fetch('http://localhost:8080/login', {
-                method : 'POST',
+                method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newUser)
             })
+            console.log('res: ' + res)
+            console.log('res-status:' + res.status)
             if (res.status === 200) {
                 console.log(res)
                 setLogin('false');
@@ -32,39 +37,46 @@ const Home = () => {
                 }
                 fetchData();
             }
-                
-            
-
-        else {
-            console.log(res)
+            else {
+                console.log(res)
+                setfailedlogin('true')
+            }
         }
-    }
         fetching();
-    
+
     }
 
-  return (
-    <div>
-        <h1>Home</h1>
+    return (
+        <div>
+            <h1>Home</h1>
 
-        {login === 'true' ?
-        <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Username" onChange= {(e) => setUsername(e.currentTarget.value)}/>
-        <input type="password" placeholder="Password" onChange= {(e) => setPassword(e.currentTarget.value)} />
-            <button type = "submit" >Log in!</button>
-        </form>
+            {login === 'true' ?
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Username" onChange={(e) => setUsername(e.currentTarget.value)} />
+                    <input type="password" placeholder="Password" onChange={(e) => setPassword(e.currentTarget.value)} />
+                    <button type="submit" >Log in!</button>
+                </form>
 
-        : 
-        data.map((item, index) => (
-                <div key={index}>
-                    <h3>{item.Username} {item.Pass} {item.Lastlog}</h3>
-                </div>
-            ))} 
+                :
+                data.map((item, index) => (
+                    <div key={index}>
+                        <h3>{item.Username} {item.Pass} {item.Lastlog}</h3>
+                    </div>
+                ))}
 
-        
-        {login === 'true' ? null :<button onClick={(e) =>setLogin("true")}> Log out!</button>}
+
+            {login === 'true' ? null : <button onClick={(e) => setLogin("true")}> Log out!</button>}
+            {failedlogin === 'true' ?
+            <div>
+                <p>Fel användarnamn eller lösenord, vill du gå vidare till registrering?</p>
+                <ul>
+            <li><Link to="/register">Register</Link></li>
+        </ul>
+            </div> : null}
+
+ 
         </div>
-  )
+    )
 }
 
 export default Home;

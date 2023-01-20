@@ -8,7 +8,7 @@ var knex = require('knex')({
     host: 'localhost',
     port: '3306',
     user: 'root',
-    password: 'Boodis',
+    password: '',
     database: 'Users'
     }
     });
@@ -54,11 +54,13 @@ var knex = require('knex')({
       {
         Users.query().where('Username', req.body.username).andWhere('Pass', req.body.password).update({Lastlog: new Date()})
         .then(res.end("Logged in"))
-        .catch(err => console.log(err));
+        .catch(err => console.log('57 ' +err));
       }
       else
       {
-        res.status(401).send("Unauthorized")
+        res.sendStatus(401)
+        res.body.text='username'
+       // res.status(401).send("Unauthorized")
       }
     })
   })
