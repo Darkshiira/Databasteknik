@@ -40,6 +40,9 @@ const Home = () => {
             else {
                 console.log(res)
                 setfailedlogin('true')
+                setInterval(() => {
+                    setfailedlogin('false')
+                }, 5000);
             }
         }
         fetching();

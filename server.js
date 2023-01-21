@@ -82,8 +82,6 @@ var knex = require('knex')({
     .then(results => {
       results.map(result => {
 
-
-        
         if (result.Lastlog/60 < 1)
         {
           result.Lastlog = (result.Lastlog + ' minutes ago')
