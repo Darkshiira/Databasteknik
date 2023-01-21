@@ -6,6 +6,9 @@ const Register = () => {
     //Sets the state of the username and password
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const[failedreg, setFailedreg]= useState('false')
+    const[successlog, setSuccecclog]=useState('false')
+    let msg='';
 const navigate=useNavigate()
 
     //Handles the submit of the form
@@ -21,16 +24,31 @@ const navigate=useNavigate()
                 
             })
             //If the response is ok, then it will clear the username and password
-            if (res.ok) {
+            if (res.status==201) {
                 console.log('res okm ' + res)
                 setUsername('');
                 setPassword('');
-                alert('You have been registered')
+                console.log(msg)
+                alert('You have been registered, please log in!')
                 navigate("/");
                 
             }
             else{
+                switch (res.status){
+                    case(409):
+                    setFailedreg('true')
+                    msg= 'användarnamnet är upptaget, välj ett annat!'
+                    break;
+                    case(400):
+                    setFailedreg('true')
+                    msg= 'Ooops, ej registrerad. Kom ihåg att användarnamn och lösenord ska ha minst 3 bokstäver'
+                    break;
+
+
+                }
+                console.log(res.statusText)
                 console.log('else: ' +res)
+                console.log(msg)
             }
         }
         fetching();
