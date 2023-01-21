@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import Msgbox from '../components/Msgbox'
+import Singlelink from '../components/Singlelink'
 
 
 
@@ -11,6 +12,7 @@ const Home = () => {
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('true');
     const [failedlogin, setfailedlogin] = useState('false')
+    let msg='Fel användarnamn eller lösenord, vill du gå vidare till registrering?'
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,10 +72,9 @@ const Home = () => {
             {login === 'true' ? null : <button onClick={(e) => setLogin("true")}> Log out!</button>}
             {failedlogin === 'true' ?
             <div>
-                <p>Fel användarnamn eller lösenord, vill du gå vidare till registrering?</p>
-                <ul>
-            <li><Link to="/register">Register</Link></li>
-        </ul>
+                <Msgbox text1={msg}/>
+                <Singlelink target={'/Register'} text={'Register'}/>
+
             </div> : null}
 
  
