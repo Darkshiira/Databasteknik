@@ -8,12 +8,12 @@ var knex = require("knex")({
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "",
+    password: "krakekrake",
     database: "Users",
   },
 });
 
-//import objection ?
+//import Model from objection ?
 const { Model } = require("objection");
 Model.knex(knex);
 
@@ -24,7 +24,8 @@ class Users extends Model {
     return "Users";
   }
 }
-const {
+//import errors from objection?
+const { 
   ValidationError,
   NotFoundError,
   DBError,
@@ -61,14 +62,12 @@ app.post("/create", (req, res) => {
       Username: req.body.username,
       Pass: req.body.password,
     })
-    .then((response) => {
+    .then((response) => { //If response is recieved, send 201 (Created) to client
       if (response) {
         res.sendStatus(201);
       }
-      //console.log(res)
-      //console.log('res: ' + res)
     })
-    .catch((err) => {
+    .catch((err) => {//If error is returned instead of response, run errHandle to determine response to sen to client
       errHandle(res, err);
       console.log("err: " + err);
     });
@@ -91,7 +90,7 @@ app.post("/login", (req, res) => {
           .update({ Lastlog: new Date() })
           //Sends a response to the login page - the response is used to redirect the user to the home page
           .then(res.end("Logged in"))
-          .catch((err) => console.log("57 " + err));
+          .catch((err) => console.log( err));
       } else {
         //Sends a response with the status code 401 - Unauthorized if the user does not exist in the database
 
@@ -122,8 +121,10 @@ app.get("/", (request, response) => {
       response.send(results);
     })
     .catch((err) => {
+      errHandle(res, err);
+      /*
       console.log(err);
-      response.status(500).send("Internal Server Error");
+      response.status(500).send("Internal Server Error");*/
     });
 });
 //Starts the server

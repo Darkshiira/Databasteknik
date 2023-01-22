@@ -35,11 +35,11 @@ const Home = () => {
         };
         fetchData();
       } else {
-        console.log(res);
+        console.log(res.message);
         setfailedlogin("true");
         setInterval(() => {
           setfailedlogin("false");
-        }, 5000);
+        }, 10000);
       }
     };
     fetching();
