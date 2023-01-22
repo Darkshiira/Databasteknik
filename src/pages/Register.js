@@ -11,7 +11,6 @@ const Register = () => {
   const [failedreg, setFailedreg] = useState(false);
   const [successlog, setSuccecclog] = useState(false);
   const [msg, setMsg]=useState("")
-  //let msg = "";
   const navigate = useNavigate();
 
   //Handles the submit of the form
@@ -24,17 +23,13 @@ const Register = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
-      //If the response is ok, then it will clear the username and password
+      //If the user have been registered it will clear the username and password
       if (res.status == 201) {
         setFailedreg(false);
         setSuccecclog(true)
         setMsg( "You have been registered, please log in!")
-        console.log("res okm " + res);
         setUsername("");
         setPassword("");
-        console.log(msg);
-        // alert("You have been registered, please log in!");
-        // navigate("/");
       } else {
         switch (res.status) {
           case 409:
@@ -42,15 +37,12 @@ const Register = () => {
             setFailedreg(true);
             setMsg("Username is already being used by someone else, please choose another!");
             break;
-          case 400:
+          case 418:
             setSuccecclog(false)
             setFailedreg(true);
             setMsg( "Ooops, make sure your username and password is long enough.");
             break;
         }
-        console.log(res.statusText);
-        console.log("else: " + res);
-        console.log(msg);
       }
     };
     fetching();
@@ -62,7 +54,7 @@ const Register = () => {
         //When the form is submitted, it will call the handleSubmit function
     <div>
 
-    {successlog===false ? (
+    {successlog===false ? (//Form is shown until successful registration have been made
     <div className="formDiv">
       <h1>Register</h1>
   
@@ -90,14 +82,14 @@ const Register = () => {
       </div>) :
       
        (
-        <div>
+        <div> {/*After successful registration, user is directed to log in*/}
           <Msgbox text1={msg} />
           <Singlelink target={"/"} text={"Log In"} />
         </div>
       )}
       {failedreg === true ? (
         <div>
-          <Msgbox text1={msg} />
+          <Msgbox text1={msg} /> {/*After failed registration, user is informed of why it failed*/}
         </div>
       ) : null}
 
