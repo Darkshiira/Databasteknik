@@ -1,14 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Msgbox from "../components/Msgbox"
+import Singlelink from "../components/Singlelink";
 
 const Register = () => {
   //Sets the state of the username and password
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [failedreg, setFailedreg] = useState("false");
-  const [successlog, setSuccecclog] = useState("false");
-  let msg = "";
+  const [failedreg, setFailedreg] = useState(false);
+  const [successlog, setSuccecclog] = useState(false);
+  const [msg, setMsg]=useState("")
+  //let msg = "";
   const navigate = useNavigate();
 
   //Handles the submit of the form
@@ -23,22 +26,26 @@ const Register = () => {
       });
       //If the response is ok, then it will clear the username and password
       if (res.status == 201) {
+        setFailedreg(false);
+        setSuccecclog(true)
+        setMsg( "You have been registered, please log in!")
         console.log("res okm " + res);
         setUsername("");
         setPassword("");
         console.log(msg);
-        alert("You have been registered, please log in!");
-        navigate("/");
+        // alert("You have been registered, please log in!");
+        // navigate("/");
       } else {
         switch (res.status) {
           case 409:
-            setFailedreg("true");
-            msg = "användarnamnet är upptaget, välj ett annat!";
+            setSuccecclog(false)
+            setFailedreg(true);
+            setMsg("Username is already being used by someone else, please choose another!");
             break;
           case 400:
-            setFailedreg("true");
-            msg =
-              "Ooops, ej registrerad. Kom ihåg att användarnamn och lösenord ska ha minst 3 bokstäver";
+            setSuccecclog(false)
+            setFailedreg(true);
+            setMsg( "Ooops, make sure your username and password is long enough.");
             break;
         }
         console.log(res.statusText);
@@ -52,10 +59,15 @@ const Register = () => {
   };
 
   return (
-    //When the form is submitted, it will call the handleSubmit function
+        //When the form is submitted, it will call the handleSubmit function
+    <div>
+
+    {successlog===false ? (
     <div className="formDiv">
       <h1>Register</h1>
+  
       <form className="form" onSubmit={handleSubmit}>
+     
         {/* When the username or password is changed, it will set the state of the username and password */}
         <input
           required
@@ -75,6 +87,20 @@ const Register = () => {
           Register
         </button>
       </form>
+      </div>) :
+      
+       (
+        <div>
+          <Msgbox text1={msg} />
+          <Singlelink target={"/"} text={"Log In"} />
+        </div>
+      )}
+      {failedreg === true ? (
+        <div>
+          <Msgbox text1={msg} />
+        </div>
+      ) : null}
+
     </div>
   );
 };
