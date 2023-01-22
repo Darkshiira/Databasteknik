@@ -79,7 +79,7 @@ const Home = () => {
           {data.map((item, index) => (
             <tr className="table-row table-row-map" key={index}>
               <td>{item.Username}</td>
-              <td>{item.pass}</td>
+              <td>{item.Pass}</td>
               <td>{item.Lastlog}</td>
             </tr>
           ))}
