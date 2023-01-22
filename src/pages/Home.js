@@ -70,25 +70,20 @@ const Home = () => {
           </button>
         </form>
       ) : (
-        data.map((item, index) => (
-          <div className="table-div" key={index}>
-            <table className="table">
-              <tr className="table-row">
-                <th>Username</th>
-                <th>Password</th>
-                <th>Last time active</th>
-              </tr>
-              <tr className="table-row">
-                <td>{item.Username}</td>
-                <td>{item.pass}</td>
-                <td>{item.Lastlog}</td>
-              </tr>
-            </table>
-            {/* <h3 className="test-h3">
-              {item.Username} {item.Pass} {item.Lastlog}
-            </h3> */}
-          </div>
-        ))
+        <table className="table-div">
+          <tr className="table-row">
+            <th>Username</th>
+            <th>Password</th>
+            <th>Last time active</th>
+          </tr>
+          {data.map((item, index) => (
+            <tr className="table-row table-row-map" key={index}>
+              <td>{item.Username}</td>
+              <td>{item.pass}</td>
+              <td>{item.Lastlog}</td>
+            </tr>
+          ))}
+        </table>
       )}
 
       {login === "true" ? null : (

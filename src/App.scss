@@ -183,30 +183,26 @@ button:focus {
 }
 
 .table-div {
-  background-color: rgb(0, 0, 0);
+  color: white;
+  // background-color: rgb(0, 0, 0);
   width: 40%;
   margin: auto;
   font-weight: 600;
   font-size: 1.1rem;
+  font-family: "password";
 
   th,
   td {
     padding: 5px;
+    border: solid 2px black;
   }
 
-  .table {
-    width: 100%;
-    // background-color: palegreen;
-    color: white;
-    font-family: "password";
-
-    th {
-      background-color: black;
-    }
-    td {
-      background-color: rgb(255, 255, 255);
-      color: rgb(0, 0, 0);
-    }
+  th {
+    background-color: black;
+  }
+  td {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
   }
 }
 
