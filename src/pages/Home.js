@@ -7,8 +7,8 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [login, setLogin] = useState("true");
-  const [failedlogin, setfailedlogin] = useState("false");
+  const [login, setLogin] = useState(true);
+  const [failedlogin, setfailedlogin] = useState(false);
   let msg =
     "Fel användarnamn eller lösenord, vill du gå vidare till registrering?";
 
@@ -21,10 +21,9 @@ const Home = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
-      console.log("res: " + res);
-      console.log("res-status:" + res.status);
       if (res.status === 200) {
-        setLogin("false");
+        setLogin(false);
+        setfailedlogin(false)
         setUsername("");
         setPassword("");
 
@@ -35,11 +34,8 @@ const Home = () => {
         };
         fetchData();
       } else {
-        console.log(res.message);
-        setfailedlogin("true");
-        setInterval(() => {
-          setfailedlogin("false");
-        }, 10000);
+        setfailedlogin(true);
+
       }
     };
     fetching();
@@ -49,7 +45,7 @@ const Home = () => {
     <div className="formDiv">
       <h1>Home</h1>
 
-      {login === "true" ? (
+      {login === true ? (
         <form className="form" onSubmit={handleSubmit}>
           <input
             required
@@ -86,13 +82,13 @@ const Home = () => {
         </table>
       )}
 
-      {login === "true" ? null : (
-        <button className="button-logOut" onClick={(e) => setLogin("true")}>
+      {login === true ? null : (
+        <button className="button-logOut" onClick={(e) => setLogin(true)}>
           {" "}
           Log out!
         </button>
       )}
-      {failedlogin === "true" ? (
+      {failedlogin === true ? (
         <div>
           <Msgbox text1={msg} />
           <Singlelink target={"/Register"} text={"Register"} />

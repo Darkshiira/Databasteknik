@@ -8,7 +8,7 @@ var knex = require("knex")({
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "Boodis",
+    password: "",
     database: "Users",
   },
 });
@@ -19,6 +19,7 @@ Model.knex(knex);
 
 const { raw } = require("objection");
 //imports our database - table
+
 class Users extends Model {
   static get tableName() {
     return "Users";
