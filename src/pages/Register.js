@@ -22,7 +22,7 @@ const Register = () => {
         body: JSON.stringify(newUser),
       });
       //If the response is ok, then it will clear the username and password
-      if (res.status == 201) {
+      if (res.status === 201) {
         console.log("res okm " + res);
         setUsername("");
         setPassword("");
