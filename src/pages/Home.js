@@ -67,11 +67,14 @@ const Home = () => {
         </form>
       ) : (
         <table className="table-div">
+          <thead>
           <tr className="table-row">
             <th>Username</th>
             <th>Password</th>
             <th>Last time active</th>
           </tr>
+          </thead>
+          <tbody>
           {data.map((item, index) => (
             <tr className="table-row table-row-map" key={index}>
               <td>{item.Username}</td>
@@ -79,6 +82,7 @@ const Home = () => {
               <td>{item.Lastlog}</td>
             </tr>
           ))}
+          </tbody>
         </table>
       )}
 
