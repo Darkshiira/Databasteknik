@@ -58,12 +58,14 @@ const Register = () => {
       <form className="form" onSubmit={handleSubmit}>
         {/* When the username or password is changed, it will set the state of the username and password */}
         <input
+          required
           className="form-username"
           type="text"
           placeholder="Username"
           onChange={(e) => setUsername(e.currentTarget.value)}
         />
         <input
+          required
           className="form-password"
           type="password"
           placeholder="Password"

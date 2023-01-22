@@ -52,12 +52,14 @@ const Home = () => {
       {login === "true" ? (
         <form className="form" onSubmit={handleSubmit}>
           <input
+            required
             className="form-username"
             type="text"
             placeholder="Username"
             onChange={(e) => setUsername(e.currentTarget.value)}
           />
           <input
+            required
             className="form-password"
             type="password"
             placeholder="Password"
@@ -69,10 +71,22 @@ const Home = () => {
         </form>
       ) : (
         data.map((item, index) => (
-          <div key={index}>
-            <h3>
+          <div className="table-div" key={index}>
+            <table className="table">
+              <tr className="table-row">
+                <th>Username</th>
+                <th>Password</th>
+                <th>Last time active</th>
+              </tr>
+              <tr className="table-row">
+                <td>{item.Username}</td>
+                <td>{item.pass}</td>
+                <td>{item.Lastlog}</td>
+              </tr>
+            </table>
+            {/* <h3 className="test-h3">
               {item.Username} {item.Pass} {item.Lastlog}
-            </h3>
+            </h3> */}
           </div>
         ))
       )}
