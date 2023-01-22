@@ -1,0 +1,159 @@
+@font-face {
+  font-family: "password";
+  src: url("./password.ttf");
+}
+
+.App {
+  text-align: center;
+}
+
+body {
+  background: linear-gradient(
+    45deg,
+    rgb(154, 114, 248) 0%,
+    rgb(236, 81, 171) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 14s ease infinite;
+  height: 100vh;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.links {
+  border-bottom: solid 2px rgb(108, 96, 96);
+  padding: 7px;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  background-size: 400% 400%;
+  background: rgb(243, 0, 255);
+  background: linear-gradient(
+    45deg,
+    rgba(243, 0, 255, 1) 0%,
+    rgb(255, 98, 0) 100%
+  );
+
+  .li-home {
+    text-shadow: 4px 4px 3px black;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      text-shadow: 2px 2px 1px black;
+    }
+  }
+
+  .li-register {
+    text-shadow: -4px 4px 3px black;
+
+    &:hover {
+      text-shadow: -2px 2px 1px black;
+    }
+  }
+
+  .li {
+    // display: inline-block;
+    // width: 6rem;
+    // text-shadow: -4px 4px 3px black;
+    font-weight: 500;
+    transform: rotate(0deg);
+    color: rgb(255, 255, 255);
+    text-decoration: dotted;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+    padding: 7px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border-radius: 25px;
+
+    &:hover {
+      // background: linear-gradient(
+      //     217deg,
+      //     rgb(0, 166, 255),
+      //     rgb(23, 109, 113) 70.71%
+      //   ),
+      //   linear-gradient(127deg, rgba(0, 255, 191, 0.8), rgb(0, 8, 255) 70.71%);
+      color: invert($color: rgb(218, 48, 48));
+    }
+  }
+}
+
+h1 {
+  color: white;
+  text-transform: uppercase;
+}
+
+.form {
+  font-family: "password";
+  margin: auto;
+  margin-top: 2%;
+  height: 15rem;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: solid 3px rgb(255, 255, 255);
+  border-radius: 0.8rem;
+  justify-content: space-around;
+  border-bottom: solid 3px palegoldenrod;
+  border-right: solid 3px palegoldenrod;
+  background: rgb(243, 0, 255);
+  background: linear-gradient(
+    111deg,
+    rgba(243, 0, 255, 1) 0%,
+    rgb(255, 98, 0) 100%
+  );
+  padding: 10px;
+
+  &-password,
+  &-username,
+  .button-submit {
+    font-size: large;
+    padding: 7px;
+    font-weight: bolder;
+    font-family: "password";
+
+    border-radius: 5px;
+    border: none;
+  }
+
+  &-password,
+  &-username {
+    border: none;
+    border-bottom: solid 3px rgb(238, 232, 170);
+    border-right: solid 3px rgb(238, 232, 170);
+  }
+
+  .button-submit {
+    transition: all 0.2s ease;
+    border: solid 3px rgba(0, 0, 0, 0);
+    &:hover {
+      // background-color: #21d359;
+      background: linear-gradient(
+          217deg,
+          rgb(0, 166, 255),
+          rgb(23, 109, 113) 70.71%
+        ),
+        linear-gradient(127deg, rgba(0, 255, 191, 0.8), rgb(0, 8, 255) 70.71%);
+      color: white;
+      text-shadow: 2px 2px black;
+      border: solid 3px rgb(255, 255, 255);
+    }
+  }
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}

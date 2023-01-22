@@ -1,21 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Home from './pages/Home';
-import Nav from './components/Nav';
-import Register from './pages/Register';
-
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.scss";
+import Home from "./pages/Home";
+import Nav from "./components/Nav";
+import Register from "./pages/Register";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Nav />
+        <Nav />
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-        </BrowserRouter>
+      </BrowserRouter>
     </div>
   );
 }
