@@ -27,14 +27,9 @@ class Users extends Model {
 //import errors from objection?
 const { 
   ValidationError,
-  NotFoundError,
   DBError,
-  ConstraintViolationError,
   UniqueViolationError,
-  NotNullViolationError,
-  ForeignKeyViolationError,
   CheckViolationError,
-  DataError,
 } = require("objection");
 
 // Allows cross domain requests (CORS)
@@ -137,44 +132,32 @@ function errHandle(res, err) {
   console.log(err.errno);
   if (err instanceof ValidationError) {
     res.status(400).send({
-      message: err.message,
-      type: err.type,
-      data: err.data,
     });
   } else if (err instanceof UniqueViolationError) {
     res.status(409).send({
       message: err.message,
       type: "UniqueViolation",
       data: {
-        columns: err.columns,
-        table: err.table,
-        constraint: err.constraint,
       },
     });
   } else if (err instanceof CheckViolationError) {
     res.status(400).send({
-      message: err.message,
       type: "CheckViolation",
       data: {
-        table: err.table,
-        constraint: err.constraint,
       },
     });
   } else if (err instanceof DBError) {
     res.status(500).send({
-      message: err.message,
       type: "UnknownDatabaseError",
       data: {},
     });
   } else if (err.errno == 3819) {
     res.status(418).send({
-      message: err.message,
       type: "I'm a teapot",
       data: {},
     });
   } else {
     res.status(500).send({
-      message: err.message,
       type: "UnknownDatabaseError",
       data: {},
     });
