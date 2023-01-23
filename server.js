@@ -8,7 +8,7 @@ var knex = require("knex")({
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "",
+    password: "Shinyn5911",
     database: "Users",
   },
 });
@@ -26,7 +26,7 @@ class Users extends Model {
   }
 }
 //import errors from objection?
-const { 
+const {
   ValidationError,
   DBError,
   UniqueViolationError,
@@ -58,12 +58,14 @@ app.post("/create", (req, res) => {
       Username: req.body.username,
       Pass: req.body.password,
     })
-    .then((response) => { //If response is recieved, send 201 (Created) to client
+    .then((response) => {
+      //If response is recieved, send 201 (Created) to client
       if (response) {
         res.sendStatus(201);
       }
     })
-    .catch((err) => {//If error is returned instead of response, run errHandle to determine response to sen to client
+    .catch((err) => {
+      //If error is returned instead of response, run errHandle to determine response to sen to client
       errHandle(res, err);
       console.log("err: " + err);
     });
@@ -86,7 +88,7 @@ app.post("/login", (req, res) => {
           .update({ Lastlog: new Date() })
           //Sends a response to the login page - the response is used to redirect the user to the home page
           .then(res.end("Logged in"))
-          .catch((err) => console.log( err));
+          .catch((err) => console.log(err));
       } else {
         //Sends a response with the status code 401 - Unauthorized if the user does not exist in the database
 
@@ -132,20 +134,17 @@ function errHandle(res, err) {
   //console.log(res)
   console.log(err.errno);
   if (err instanceof ValidationError) {
-    res.status(400).send({
-    });
+    res.status(400).send({});
   } else if (err instanceof UniqueViolationError) {
     res.status(409).send({
       message: err.message,
       type: "UniqueViolation",
-      data: {
-      },
+      data: {},
     });
   } else if (err instanceof CheckViolationError) {
     res.status(400).send({
       type: "CheckViolation",
-      data: {
-      },
+      data: {},
     });
   } else if (err instanceof DBError) {
     res.status(500).send({

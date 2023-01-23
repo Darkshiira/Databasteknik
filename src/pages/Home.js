@@ -23,7 +23,7 @@ const Home = () => {
       });
       if (res.status === 200) {
         setLogin(false);
-        setfailedlogin(false)
+        setfailedlogin(false);
         setUsername("");
         setPassword("");
 
@@ -35,7 +35,6 @@ const Home = () => {
         fetchData();
       } else {
         setfailedlogin(true);
-
       }
     };
     fetching();
@@ -62,26 +61,26 @@ const Home = () => {
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
           <button className="button-submit" type="submit">
-            Log in!
+            Login
           </button>
         </form>
       ) : (
         <table className="table-div">
           <thead>
-          <tr className="table-row">
-            <th>Username</th>
-            <th>Password</th>
-            <th>Last time active</th>
-          </tr>
+            <tr className="table-row">
+              <th>Username</th>
+              <th>Password</th>
+              <th>Last time active</th>
+            </tr>
           </thead>
           <tbody>
-          {data.map((item, index) => (
-            <tr className="table-row table-row-map" key={index}>
-              <td>{item.Username}</td>
-              <td>{item.Pass}</td>
-              <td>{item.Lastlog}</td>
-            </tr>
-          ))}
+            {data.map((item, index) => (
+              <tr className="table-row table-row-map" key={index}>
+                <td>{item.Username}</td>
+                <td>{item.Pass}</td>
+                <td>{item.Lastlog}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
@@ -89,11 +88,11 @@ const Home = () => {
       {login === true ? null : (
         <button className="button-logOut" onClick={(e) => setLogin(true)}>
           {" "}
-          Log out!
+          Log Out
         </button>
       )}
       {failedlogin === true ? (
-        <div>
+        <div className="pop-up-error">
           <Msgbox text1={msg} />
           <Singlelink target={"/Register"} text={"Register"} />
         </div>
